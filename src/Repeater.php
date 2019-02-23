@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Repeater control
  */
-class Kirki_Control_Repeater extends Base {
+class Repeater extends Base {
 
 	/**
 	 * The control type.
