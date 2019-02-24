@@ -205,7 +205,6 @@ class Repeater extends Base {
 			'kirki-control-repeater',
 			"$url/assets/scripts/control.js",
 			[
-				'kirki-script',
 				'jquery',
 				'customize-base',
 			],
