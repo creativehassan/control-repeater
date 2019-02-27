@@ -19,9 +19,10 @@
     },
     "autoload": {
 		"psr-4": {
-			"Kirki\\Control\\": "src/",
-			"Kirki\\Settings\\": "src/"
+            "Kirki\\Control\\": "src/Control",
+            "Kirki\\Field\\": "src/Field",
+			"Kirki\\Settings\\": "src/Settings"
         },
-        "files": ["src/aliases.php"]
+        "files": ["src/functions.php"]
     }
 }

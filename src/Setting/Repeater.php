@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Repeater Settings.
  */
-class Repeater_Setting extends \WP_Customize_Setting {
+class Repeater extends \WP_Customize_Setting {
 
 	/**
 	 * Constructor.

@@ -12,6 +12,9 @@ add_action(
     'customize_register',
     function() {
         class_alias( 'Kirki\Control\Repeater', 'Kirki_Control_Repeater' );
-        class_alias( 'Kirki\Settings\Repeater_Setting', 'Kirki_Settings_Repeater_Setting' );
+        class_alias( 'Kirki\Settings\Repeater', 'Kirki\Settings\Repeater_Setting' );
+        class_alias( 'Kirki\Settings\Repeater', 'Kirki_Settings_Repeater_Setting' );
     }
 );
+
+class_alias( 'Kirki\Field\Repeater', 'Kirki_Field_Repeater' );
