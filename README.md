@@ -54,21 +54,21 @@ add_action( 'customize_register', function( $wp_customize ) {
 		'capability'        => 'edit_theme_options',
 		'transport'         => 'refresh',
 		'sanitize_callback' => function( $value ) { // Custom sanitization callback.
-			$value = ( is_array( $value ) ) ? $value : json_decode( urldecode( $value ) );
+			$value = ( is_array( $value ) ) ? $value : json_decode( urldecode( $value ), true );
 			$value = ( empty( $value ) || ! is_array( $value ) ) ? [] : $value;
 
 			foreach ( $value as $row_index => $row_data ) {
 				$value[ $row_index ]['link_text'] = isset( $row_data['link_text'] ) ? sanitize_text_field( $row_data['link_text'] ) : '';
 				$value[ $row_index ]['link_url'] = isset( $row_data['link_url'] ) ? esc_url( $row_data['link_url'] ) : '';
-				$value[ $row_index ]['link_target'] = isset( $row_data['link_target'] && in_array( $row_data['link_target'], [ '_self', '_blank', '_parent', '_top' ], true ) ) ? $row_data['link_target'] : '_self';
+				$value[ $row_index ]['link_target'] = isset( $row_data['link_target'] ) && in_array( $row_data['link_target'], [ '_self', '_blank', '_parent', '_top' ], true ) ? $row_data['link_target'] : '_self';
 			}
 		},
 	] ) );
 
 	// Add controls.
-	$wp_customize->add_control( new \Kirki\Control\Palette( $wp_customize, 'my_repeater_setting', [
+	$wp_customize->add_control( new \Kirki\Control\Repeater( $wp_customize, 'my_repeater_setting', [
 		'label'   => esc_html__( 'My Control', 'theme_textdomain' ),
-		'section' => 'my_section',
+		'section' => 'colors',
 		'fields'  => [
 			'link_text'   => [
 				'type'        => 'text',
@@ -83,7 +83,7 @@ add_action( 'customize_register', function( $wp_customize ) {
 				'default'     => '',
 			],
 			'link_target' => [
-				'type'        => 'select',
+				'type'        => 'radio',
 				'label'       => esc_html__( 'Link Target', 'theme_textdomain' ),
 				'description' => esc_html__( 'This will be the link target', 'theme_textdomain' ),
 				'default'     => '_self',
@@ -91,11 +91,6 @@ add_action( 'customize_register', function( $wp_customize ) {
 					'_blank' => esc_html__( 'New Window', 'theme_textdomain' ),
 					'_self'  => esc_html__( 'Same Frame', 'theme_textdomain' ),
 				],
-			],
-			'checkbox'    => [
-				'type'    => 'checkbox',
-				'label'   => esc_html__( 'Checkbox', 'theme_textdomain' ),
-				'default' => false,
 			],
 		],
 	] ) );
