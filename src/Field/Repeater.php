@@ -20,59 +20,52 @@ use Kirki\Compatibility\Field;
 class Repeater extends Field {
 
 	/**
-	 * The control class-name.
+	 * Used only on repeaters.
+	 * Contains an array of the fields.
 	 *
 	 * @access protected
-	 * @since 0.1
-	 * @var string
+	 * @since 1.0
+	 * @var array
 	 */
-	protected $control_class = '\Kirki\Control\Repeater';
+	protected $fields = [];
 
 	/**
-	 * Whether we should register the control class for JS-templating or not.
+	 * Sets the control type.
 	 *
 	 * @access protected
-	 * @since 0.1
-	 * @var bool
+	 * @since 1.0
+	 * @return void
 	 */
-	protected $control_has_js_template = true;
-
-	/**
-	 * Filter arguments before creating the setting.
-	 *
-	 * @access public
-	 * @since 0.1
-	 * @param array                $args         The field arguments.
-	 * @param WP_Customize_Manager $wp_customize The customizer instance.
-	 * @return array
-	 */
-	public function filter_setting_args( $args, $wp_customize ) {
-		if ( $args['settings'] === $this->args['settings'] ) {
-			$args = parent::filter_setting_args( $args, $wp_customize );
-
-			// Set the sanitize-callback if none is defined.
-			if ( ! isset( $args['sanitize_callback'] ) || ! $args['sanitize_callback'] ) {
-				$args['sanitize_callback'] = [ $this, 'sanitize' ];
-			}
-		}
-		return $args;
+	protected function set_type() {
+		$this->type = 'repeater';
 	}
 
 	/**
-	 * Filter arguments before creating the control.
+	 * Sets the $transport
 	 *
-	 * @access public
-	 * @since 0.1
-	 * @param array                $args         The field arguments.
-	 * @param WP_Customize_Manager $wp_customize The customizer instance.
-	 * @return array
+	 * @access protected
+	 * @since 1.0
+	 * @return void
 	 */
-	public function filter_control_args( $args, $wp_customize ) {
-		if ( $args['settings'] === $this->args['settings'] ) {
-			$args         = parent::filter_control_args( $args, $wp_customize );
-			$args['type'] = 'kirki-repeater';
+	protected function set_transport() {
+
+		// Force using refresh mode.
+		// Currently the repeater control does not support postMessage.
+		$this->transport = 'refresh';
+	}
+
+
+	/**
+	 * Sets the $sanitize_callback
+	 *
+	 * @access protected
+	 * @since 1.0
+	 * @return void
+	 */
+	protected function set_sanitize_callback() {
+		if ( empty( $this->sanitize_callback ) ) {
+			$this->sanitize_callback = [ $this, 'sanitize' ];
 		}
-		return $args;
 	}
 
 	/**
