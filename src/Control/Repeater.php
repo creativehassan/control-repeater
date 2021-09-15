@@ -86,6 +86,7 @@ class Repeater extends Base {
 	 * @param array                $args    {@see WP_Customize_Control::__construct}.
 	 */
 	public function __construct( $manager, $id, $args = [] ) {
+
 		parent::__construct( $manager, $id, $args );
 
 		// Set up defaults for row labels.
@@ -197,6 +198,7 @@ class Repeater extends Base {
 				}
 			}
 		}
+
 	}
 
 	/**
